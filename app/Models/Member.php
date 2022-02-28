@@ -31,6 +31,10 @@ class Member extends Model
         });
     }
 
+    public static function getCode(){
+        return mt_rand(10000000, 99999999);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
