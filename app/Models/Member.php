@@ -15,12 +15,7 @@ class Member extends Model
     protected $keyType = 'string';
     public $incrementing = false;
     protected $guarded = ['uuid'];
-    protected $fillable = [
-        'code',
-        'name',
-        'email',
-        'district_id',
-    ];
+    // protected $fillable = ['id'];
 
     /*
     |--------------------------------------------------------------------------
@@ -41,6 +36,9 @@ class Member extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function district(){
+        return $this->belongsTo(District::class, 'district_id', 'id');
+    }
 
     /*
     |--------------------------------------------------------------------------

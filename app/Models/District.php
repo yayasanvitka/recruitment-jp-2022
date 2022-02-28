@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\City;
+use App\Models\Member;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 
@@ -38,6 +39,11 @@ class District extends Model
     public function city(){
         return $this->belongsTo(City::class, 'city_id', 'id');
     }
+
+    public function members(){
+        return $this->hasMany(Member::class, 'district_id', 'id');
+    }
+
 
     /*
     |--------------------------------------------------------------------------
