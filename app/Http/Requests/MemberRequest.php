@@ -27,7 +27,7 @@ class MemberRequest extends FormRequest
     {
         return [
             'district_id'   => ['required', 'exists:districts,id'],
-            'code' => ['required', 'integer', 'digits:8'],
+            'code' => ['integer', 'digits:8'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:members'],
         ];
