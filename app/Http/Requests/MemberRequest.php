@@ -26,7 +26,10 @@ class MemberRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'district_id'   => ['required', 'exists:districts,id'],
+            'code' => ['required', 'integer', 'digits:8'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:members'],
         ];
     }
 
