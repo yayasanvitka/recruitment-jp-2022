@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Member;
 use App\Models\District;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Requests\MemberRequest;
 use App\Http\Requests\MemberUpdateRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
@@ -133,7 +131,7 @@ class MemberCrudController extends CrudController
         return redirect()->route('member.index');
     }
 
-    public function update(MemberRequest $request){
+    public function update(MemberUpdateRequest $request){
         $district = District::where('id', $request->district_id)->first();
         $data = [
             'name' => $request->name,
