@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Member;
 use App\Http\Requests\MemberRequest;
+use App\Http\Requests\MemberUpdateRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -73,14 +75,14 @@ class MemberCrudController extends CrudController
                 'label' => 'Code',
                 'name' => 'code',
                 'wrapper' => [
-                    'class' => 'form-group col-md-6',
+                    'class' => 'form-group col-md-12',
                 ]
             ],
             [
                 'label' => 'Name',
                 'name' => 'name',
                 'wrapper' => [
-                    'class' => 'form-group col-md-6',
+                    'class' => 'form-group col-md-12',
                 ]
             ],
             [
@@ -88,14 +90,14 @@ class MemberCrudController extends CrudController
                 'name' => 'email',
                 'type' => 'email',
                 'wrapper' => [
-                    'class' => 'form-group col-md-6',
+                    'class' => 'form-group col-md-12',
                 ],
             ],
             [
                 'label' => 'Location',
                 'name' => 'district_id',
                 'wrapper' => [
-                    'class' => 'form-group col-md-6',
+                    'class' => 'form-group col-md-12',
                 ],
             ],
         ]);
@@ -110,5 +112,18 @@ class MemberCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+        $this->crud->removeField('email');
+    }
+
+    public function update(MemberUpdateRequest $request){
+        $data = [
+            'code' => $request->code,
+            'name' => $request->name,
+            'district_id' => $request->district_id,
+        ];
+
+        Member::where('uuid', $request->uuid)->update($data);
+        
+        return redirect()->route('member.index');
     }
 }
