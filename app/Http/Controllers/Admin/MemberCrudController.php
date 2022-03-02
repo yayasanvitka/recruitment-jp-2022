@@ -112,7 +112,6 @@ class MemberCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
-        $this->crud->removeField('email');
     }
 
     public function update(MemberUpdateRequest $request){
