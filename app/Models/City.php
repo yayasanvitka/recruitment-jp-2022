@@ -45,6 +45,10 @@ class City extends Model
         return $this->hasMany(District::class, 'city_id', 'id');
     }
 
+    public function members(){
+        return $this->hasMany(Member::class, 'city_id', 'id');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->uuid('uuid')->primary();
             $table->foreignId('district_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('city_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
 
             $table->char('code', 8)->unique();
             $table->string('name');

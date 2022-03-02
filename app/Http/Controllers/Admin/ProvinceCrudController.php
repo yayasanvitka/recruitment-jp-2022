@@ -41,11 +41,14 @@ class ProvinceCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('id');
+        $this->crud->addColumn([
+            'name'      => 'row_number',
+            'type'      => 'row_number',
+            'label'     => 'No.',
+            'orderable' => true,
+        ])->makeFirstColumn();
         CRUD::column('name');
         CRUD::column('slug');
-        CRUD::column('created_at');
-        CRUD::column('updated_at');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:

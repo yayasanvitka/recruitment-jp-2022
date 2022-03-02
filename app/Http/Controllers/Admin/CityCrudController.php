@@ -42,12 +42,24 @@ class CityCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('id');
-        CRUD::column('province_id');
+        $this->crud->addColumn([
+            'name'      => 'row_number',
+            'type'      => 'row_number',
+            'label'     => 'No.',
+            'orderable' => true,
+        ])->makeFirstColumn();
+        $this->crud->addColumns([
+            [
+                'label'     => 'Province Name', // Label on form
+                'type'      => 'select',
+                'name'      => 'province_id', // Foreign Key
+                'entity'    => 'province', // relation method name
+                'attribute' => 'name', // Column  that want to show on create form
+                'model'     => "App\Models\Province", // foreign key model
+            ],
+        ]);
         CRUD::column('name');
         CRUD::column('slug');
-        CRUD::column('created_at');
-        CRUD::column('updated_at');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:

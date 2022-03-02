@@ -28,15 +28,7 @@ class Province extends Model
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
-    */
-    public static function getAllProvince(){
-        return Province::all();
-    }
-
-    public function getRouteKeyName(){
-        return 'slug';
-    }
-    
+    */    
 
     /*
     |--------------------------------------------------------------------------

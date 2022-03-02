@@ -41,12 +41,24 @@ class DistrictCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('id');
-        CRUD::column('city_id');
+        $this->crud->addColumn([
+            'name'      => 'row_number',
+            'type'      => 'row_number',
+            'label'     => 'No.',
+            'orderable' => true,
+        ])->makeFirstColumn();
+        $this->crud->addColumns([
+            [
+                'label'     => 'City',
+                'type'      => 'select',
+                'name'      => 'city_id', // the column that contains the ID of that connected entity;
+                'entity'    => 'city', // the method that defines the relationship in your Model
+                'attribute' => 'name', // foreign key attribute that is shown to user
+                'model'     => "App\Models\City", // foreign key model
+            ],
+        ]);
         CRUD::column('name');
         CRUD::column('slug');
-        CRUD::column('created_at');
-        CRUD::column('updated_at');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:

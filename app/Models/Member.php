@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\City;
+use App\Models\District;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 
 class Member extends Model
 {
@@ -42,6 +44,10 @@ class Member extends Model
     */
     public function district(){
         return $this->belongsTo(District::class, 'district_id', 'id');
+    }
+    
+    public function city(){
+        return $this->belongsTo(City::class, 'city_id', 'id');
     }
 
     /*
