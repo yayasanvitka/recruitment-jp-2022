@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Services\CodeMemberService;
 use App\Http\Requests\MemberRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -56,9 +57,6 @@ class MemberCrudController extends CrudController
                 'name' => 'city_id',
 				'entity' => 'district.city',
 				'attribute' => 'name',
-				'searchLogic' => function ($query, $column, $searchTerm) {
-					$query->orWhere('cities.name', 'like', '%'.$searchTerm.'%');
-				},
             ],
             [
                 'label' => 'Location',
@@ -76,6 +74,7 @@ class MemberCrudController extends CrudController
     protected function setupCreateOperation()
     {
         $this->crud->setValidation(MemberRequest::class);
+        $code = CodeMemberService::handle();
 
         $this->crud->addFields([
             [
@@ -83,6 +82,10 @@ class MemberCrudController extends CrudController
                 'name' => 'code',
                 'wrapper' => [
                     'class' => 'form-group col-md-6',
+                ],
+                'default' => $code,
+                'attributes' => [
+                    'readonly'  => 'readonly',
                 ]
             ],
             [
