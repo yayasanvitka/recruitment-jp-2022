@@ -42,6 +42,11 @@ class Member extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function district()
+    {
+        return $this->belongsTo('App\Models\district');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
