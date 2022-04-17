@@ -4,37 +4,30 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
-class Member extends Model
+class District extends Model
 {
     use CrudTrait;
 
-    protected $table = 'members';
-    protected $primaryKey = 'uuid';
-    protected $keyType = 'string';
-    public $incrementing = false;
-    protected $guarded = ['uuid'];
-    protected $fillable = [
-        'code',
-        'name',
-        'email',
-        'district_id',
-    ];
+    /*
+    |--------------------------------------------------------------------------
+    | GLOBAL VARIABLES
+    |--------------------------------------------------------------------------
+    */
+
+    protected $table = 'district';
+    protected $primaryKey = 'district_id';
+    // public $timestamps = false;
+    protected $guarded = ['district_id'];
+    // protected $fillable = [];
+    // protected $hidden = [];
+    // protected $dates = [];
 
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function (Member $model) {
-            $model->uuid = (string) Str::orderedUuid()->toString();
-        });
-    }
 
     /*
     |--------------------------------------------------------------------------
@@ -42,9 +35,14 @@ class Member extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function district()
+    public function Member()
     {
-        return $this->belongsTo('App\Models\cities', 'district_id');
+        return $this->hasMany('App\Models\Member', 'district_id');
+    }
+
+    public function cities()
+    {
+        return $this->belongsTo('App\Models\cities', 'cities_id');
     }
 
     /*
