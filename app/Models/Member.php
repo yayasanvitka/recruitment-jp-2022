@@ -41,7 +41,7 @@ class Member extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+    //member-district
     public function district()
     {
         return $this->belongsTo('App\Models\cities', 'district_id');
