@@ -40,6 +40,11 @@ class Cities extends Model
         return $this->hasMany('App\Models\district', 'cities_id');
     }
 
+    public function member()
+    {
+        return $this->hasManyThrough('App\Models\member','App\Models\district', 'district_id', 'cities_id');
+    }
+
     public function province()
     {
         return $this->belongsTo('App\Models\province', 'province_id');

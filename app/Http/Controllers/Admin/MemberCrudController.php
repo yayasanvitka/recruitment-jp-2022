@@ -17,6 +17,7 @@ class MemberCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -42,18 +43,42 @@ class MemberCrudController extends CrudController
             [
                 'label' => 'Code',
                 'name' => 'code',
+                'searchLogic' => 'text',
+
             ],
             [
                 'label' => 'Name',
                 'name' => 'name',
+                'searchLogic' => 'text',
+
             ],
             [
                 'label' => 'Email',
                 'name' => 'email',
+                'searchLogic' => 'text',
+
+            ],
+            [
+                'label' => 'City',
+                'name' => 'district.cities.cities_name',
+                'orderable' => 'true',
+                'searchLogic' => function ($query, $column, $searchTerm)
+                {
+                    $query->orWhereHas('cities', function ($q) use ($column, $searchTerm) {
+                        $q->where('cities_name', 'like', '%'.$searchTerm.'%');
+                    });
+                }
             ],
             [
                 'label' => 'Location',
                 'name' => 'district_id',
+                'searchLogic' => function ($query, $column, $searchTerm)
+                {
+                    $query->orWhereHas('district', function ($q) use ($column, $searchTerm) {
+                        $q->where('district_name', 'like', '%'.$searchTerm.'%');
+                    });
+                }
+
             ],
         ]);
     }
