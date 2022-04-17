@@ -10,10 +10,14 @@ class ApiController extends Controller
 {
     public function index()
     {
-        $member = Member::with('district.city.province')->orderBy('created_at', 'DESC')->get();
+        $members = Member::with('district.city.province')->orderBy('created_at', 'DESC')->get();
+        $count = $members->count();
+
         $response = [
-            'message' => 'Data Member',
-            'data' => $member,
+            'status'    => 'Success',
+            'message' => 'Get Data Member Successfully',
+            'data' => $members,
+            'count'     => $count
         ];
         return response()->json($response, HttpFoundationResponse::HTTP_OK);
     }
