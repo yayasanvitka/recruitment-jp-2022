@@ -53,14 +53,25 @@ class MemberCrudController extends CrudController
                 'name' => 'email',
             ],
             [
-                'label' => 'City',
-                'name' => 'city_id',
-				'entity' => 'district.city',
-				'attribute' => 'name',
+                'label'       => 'City',
+                'type'        => 'select',
+                'name'        => 'city_id',
+                'entity'      => 'district.city',
+                'attribute'   => 'name',
+                'model'       => 'App\Models\City',
+                'searchLogic' => function ($query, $column, $searchTerm) {
+                    $query->orWhereHas('district.city', function ($q) use ($column, $searchTerm) {
+                        $q->where('name', 'like', '%'.$searchTerm.'%');
+                    });
+                }
             ],
             [
-                'label' => 'Location',
-                'name' => 'district_id',
+                'label'       => 'Location',
+                'type'        => 'select',
+                'name'        => 'district_id',
+                'entity'      => 'district',
+                'attribute'   => 'name',
+                'model'       => 'App\Models\District',
             ],
         ]);
     }
