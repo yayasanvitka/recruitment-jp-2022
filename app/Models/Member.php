@@ -34,6 +34,9 @@ class Member extends Model
         static::creating(function (Member $model) {
             $model->uuid = (string) Str::orderedUuid()->toString();
         });
+        static::creating(function (Member $model) {
+            $model->code = (string) Str::random(8);
+        });
     }
 
     /*

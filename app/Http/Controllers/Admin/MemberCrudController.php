@@ -74,7 +74,10 @@ class MemberCrudController extends CrudController
                 'name' => 'code',
                 'wrapper' => [
                     'class' => 'form-group col-md-6',
-                ]
+                ],
+                'attributes' => [
+                    'disabled' => 'disabled',
+                  ],
             ],
             [
                 'label' => 'Name',

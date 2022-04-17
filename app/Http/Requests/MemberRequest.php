@@ -27,7 +27,7 @@ class MemberRequest extends FormRequest
     {
         return [
             // 'name' => 'required|min:5|max:255'
-            'code' => 'required|unique:members',
+            'code' => 'unique:members',
             'email' => 'required|unique:members',
             'name' => 'required|max:35',
             'district_id' => 'required',
