@@ -59,10 +59,17 @@ class MemberCrudController extends CrudController
                 'entity'      => 'district.city',
                 'attribute'   => 'name',
                 'model'       => 'App\Models\City',
+                'orderable'  => true,
                 'searchLogic' => function ($query, $column, $searchTerm) {
                     $query->orWhereHas('district.city', function ($q) use ($column, $searchTerm) {
                         $q->where('name', 'like', '%'.$searchTerm.'%');
                     });
+                },
+                'orderLogic' => function ($query, $column, $columnDirection) {
+                    return
+                    $query->leftJoin('districts', 'districts.id', '=', 'members.district_id')
+                        ->leftJoin('cities', 'cities.id', '=', 'districts.city_id')
+                        ->orderBy('cities.name', $columnDirection)->select('members.*');
                 }
             ],
             [
