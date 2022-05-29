@@ -108,6 +108,8 @@ class MemberCrudController extends CrudController
                 ],
             ],
         ]);
+
+        $this->crud->setValidation(MemberRequest::class);
         
     }
 
@@ -119,23 +121,10 @@ class MemberCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
+        
         $this->setupCreateOperation();
-
         
-
-        // $this->crud->setValidation(MemberUpdateRequest::class);
+        $this->crud->removeField('code');
+        $this->crud->setValidation(MemberUpdateRequest::class);
     }
-
-
-    // public function update(MemberUpdateRequest $request){
-    //     $data = [
-    //         'code' => $request->code,
-    //         'name' => $request->name,
-    //         'district_id' => $request->district_id,
-    //     ];
-
-    //     Member::where('uuid', $request->uuid)->update($data);
-        
-    //     return redirect()->route('member.index');
-    // }
 }
