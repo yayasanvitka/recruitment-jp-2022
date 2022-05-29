@@ -40,7 +40,13 @@ class ProvinceCrudController extends CrudController
     protected function setupListOperation()
     {
         
-        CRUD::column('province_name');
+        $this->crud->addColumns([
+            [
+                'label' => 'Province',
+                'name' => 'province_name',
+                'type' => 'text',
+            ],
+        ]);
         
 
         /**
