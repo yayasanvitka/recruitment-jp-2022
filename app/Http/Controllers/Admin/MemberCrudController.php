@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\MemberRequest;
 use App\Http\Requests\MemberUpdateRequest;
 use App\Models\Member;
+use App\Services\CodeMemberService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudField;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -71,7 +72,9 @@ class MemberCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        
+        $code = new CodeMemberService();
+        $code = $code->generateCode();
+
 
         $this->crud->addFields([
             [
@@ -79,6 +82,10 @@ class MemberCrudController extends CrudController
                 'name' => 'code',
                 'wrapper' => [
                     'class' => 'form-group col-md-6',
+                ],
+                'default' =>  $code,
+                'attributes' => [
+                    'readonly'  => 'readonly',
                 ]
             ],
             [
