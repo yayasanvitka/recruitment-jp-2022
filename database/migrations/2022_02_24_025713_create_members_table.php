@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->uuid('uuid')->primary();
-            $table->char('code', 8)->unique();
+            $table->char('code', 7)->unique();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('district_id')->nullable();
