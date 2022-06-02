@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\MemberRequest;
+use App\Http\Requests\MemberUpdateRequest;
+use App\Models\Member;
+use App\Services\CodeMemberService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Library\CrudPanel\CrudField;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
@@ -53,7 +57,9 @@ class MemberCrudController extends CrudController
             ],
             [
                 'label' => 'Location',
-                'name' => 'district_id',
+                'name' => 'district_name',
+                'entity' => 'district',
+                'attribute' => 'district_name',
             ],
         ]);
     }
@@ -66,7 +72,9 @@ class MemberCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        $this->crud->setValidation(MemberRequest::class);
+        $code = new CodeMemberService();
+        $code = $code->generateCode();
+
 
         $this->crud->addFields([
             [
@@ -74,6 +82,10 @@ class MemberCrudController extends CrudController
                 'name' => 'code',
                 'wrapper' => [
                     'class' => 'form-group col-md-6',
+                ],
+                'default' =>  $code,
+                'attributes' => [
+                    'readonly'  => 'readonly',
                 ]
             ],
             [
@@ -94,11 +106,18 @@ class MemberCrudController extends CrudController
             [
                 'label' => 'Location',
                 'name' => 'district_id',
+                'type' => 'select',
+                'entity' => 'district',
+                'attribute' => 'district_name',
+                'model' => 'App\Models\District',
                 'wrapper' => [
                     'class' => 'form-group col-md-6',
                 ],
             ],
         ]);
+
+        $this->crud->setValidation(MemberRequest::class);
+        
     }
 
     /**
@@ -109,6 +128,10 @@ class MemberCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
+        
         $this->setupCreateOperation();
+        
+        $this->crud->removeField('code');
+        $this->crud->setValidation(MemberUpdateRequest::class);
     }
 }
