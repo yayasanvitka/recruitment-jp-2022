@@ -46,7 +46,10 @@ class Member extends Model
         return $this->belongsTo('App\Models\District', 'district_id');
     }
     
-
+    public function city()
+    {
+        return $this->belongsTo('App\Models\City', 'city_id');
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES
